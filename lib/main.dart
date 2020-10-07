@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_last_time/data/all_data.dart';
+import 'data_observer.dart';
 
 void main() {
+  Bloc.observer = DataObserver();
   runApp(MyApp());
 }
 
@@ -8,26 +13,28 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Last Time',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-        // This makes the visual density adapt to the platform that you run
-        // the app on. For desktop platforms, the controls will be smaller and
-        // closer together (more dense) than on mobile platforms.
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'Last Time'),
-    );
+    return BlocProvider(
+        create: (_) => DataCubit(),
+        child: MaterialApp(
+          title: 'Last Time',
+          theme: ThemeData(
+            // This is the theme of your application.
+            //
+            // Try running your application with "flutter run". You'll see the
+            // application has a blue toolbar. Then, without quitting the app, try
+            // changing the primarySwatch below to Colors.green and then invoke
+            // "hot reload" (press "r" in the console where you ran "flutter run",
+            // or simply save your changes to "hot reload" in a Flutter IDE).
+            // Notice that the counter didn't reset back to zero; the application
+            // is not restarted.
+            primarySwatch: Colors.blue,
+            // This makes the visual density adapt to the platform that you run
+            // the app on. For desktop platforms, the controls will be smaller and
+            // closer together (more dense) than on mobile platforms.
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: MyHomePage(title: 'Last Time'),
+        ));
   }
 }
 
@@ -53,6 +60,10 @@ enum SingingCharacter { male, female }
 
 class _MyHomePageState extends State<MyHomePage> {
   SingingCharacter _character = SingingCharacter.male;
+  TextEditingController firstName = TextEditingController();
+  TextEditingController lastName = TextEditingController();
+  String gender;
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -117,6 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               height: 50,
               child: TextField(
+                controller: firstName,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 20),
               ),
@@ -137,7 +149,9 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               height: 50,
               child: TextField(
-                  textAlign: TextAlign.center, style: TextStyle(fontSize: 20)),
+                  controller: lastName,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20)),
             ),
             Container(
               height: 30,
@@ -160,6 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onChanged: (SingingCharacter value) {
                   setState(() {
                     _character = value;
+                    gender = 'MR.';
                   });
                 },
               ),
@@ -172,6 +187,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onChanged: (SingingCharacter value) {
                   setState(() {
                     _character = value;
+                    gender = 'MS.';
                   });
                 },
               ),
@@ -180,7 +196,11 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 50,
               width: 120,
               child: RaisedButton(
-                onPressed: () => {},
+                onPressed: () => {
+                  context
+                      .bloc<DataCubit>()
+                      .addData(PersonalData(firstName.text, lastName.text, gender)),
+                },
                 color: Colors.blue,
                 child: Text(
                   'GO',
