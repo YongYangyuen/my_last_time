@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_last_time/data/all_data.dart';
+import 'package:my_last_time/presentation/add_screen.dart';
+import 'package:my_last_time/presentation/dash_screen.dart';
+import 'config/routes.dart';
 import 'data_observer.dart';
 
+TextEditingController firstName = TextEditingController();
+TextEditingController lastName = TextEditingController();
+String gender = 'Mr.';
 void main() {
   Bloc.observer = DataObserver();
   runApp(MyApp());
@@ -17,6 +23,7 @@ class MyApp extends StatelessWidget {
         create: (_) => DataCubit(),
         child: MaterialApp(
           title: 'Last Time',
+          onGenerateRoute: _registerRouteWithParameters,
           theme: ThemeData(
             // This is the theme of your application.
             //
@@ -60,9 +67,6 @@ enum SingingCharacter { male, female }
 
 class _MyHomePageState extends State<MyHomePage> {
   SingingCharacter _character = SingingCharacter.male;
-  TextEditingController firstName = TextEditingController();
-  TextEditingController lastName = TextEditingController();
-  String gender;
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
@@ -100,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Container(
               decoration: BoxDecoration(color: Colors.blue[400]),
-              height: 70,
+              height: MediaQuery.of(context).size.width - 320,
               width: MediaQuery.of(context).size.width,
               child: Text(
                 'Last Time',
@@ -109,15 +114,15 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Container(
-              height: 200,
+              height: MediaQuery.of(context).size.width - 200,
               child: Image(image: AssetImage('assets/clock.png')),
             ),
             Container(
-              height: 10,
+              height: MediaQuery.of(context).size.width - 390,
               child: Text(''),
             ),
             Container(
-              height: 50,
+              height: MediaQuery.of(context).size.width - 350,
               width: MediaQuery.of(context).size.width,
               child: Text(
                 'First Name',
@@ -126,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Container(
-              height: 50,
+              height: MediaQuery.of(context).size.width - 350,
               child: TextField(
                 controller: firstName,
                 textAlign: TextAlign.center,
@@ -134,11 +139,11 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Container(
-              height: 30,
+              height: MediaQuery.of(context).size.width - 380,
               child: Text(''),
             ),
             Container(
-              height: 50,
+              height: MediaQuery.of(context).size.width - 350,
               width: MediaQuery.of(context).size.width,
               child: Text(
                 'Last Name',
@@ -147,18 +152,18 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Container(
-              height: 50,
+              height: MediaQuery.of(context).size.width - 350,
               child: TextField(
                   controller: lastName,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20)),
             ),
             Container(
-              height: 30,
+              height: MediaQuery.of(context).size.width - 380,
               child: Text(''),
             ),
             Container(
-              height: 50,
+              height: MediaQuery.of(context).size.width - 350,
               width: MediaQuery.of(context).size.width,
               child: Text(
                 'Gender',
@@ -174,7 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onChanged: (SingingCharacter value) {
                   setState(() {
                     _character = value;
-                    gender = 'MR.';
+                    gender = 'Mr.';
                   });
                 },
               ),
@@ -187,7 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onChanged: (SingingCharacter value) {
                   setState(() {
                     _character = value;
-                    gender = 'MS.';
+                    gender = 'Ms.';
                   });
                 },
               ),
@@ -197,9 +202,13 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 120,
               child: RaisedButton(
                 onPressed: () => {
-                  context
-                      .bloc<DataCubit>()
-                      .addData(PersonalData(firstName.text, lastName.text, gender)),
+                  context.bloc<DataCubit>().addData(
+                      PersonalData(firstName.text, lastName.text, gender)),
+                  print(firstName),
+                  print(lastName),
+                  print(gender),
+                  Navigator.of(context).pushNamed(AppRoutes.pageDashEvent,
+                      arguments: DashParameters("Dashboard")),
                 },
                 color: Colors.blue,
                 child: Text(
@@ -212,5 +221,21 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+}
+
+// ignore: missing_return
+Route _registerRouteWithParameters(RouteSettings settings) {
+  if (settings.name == AppRoutes.pageDashEvent) {
+    return MaterialPageRoute(builder: (context) {
+      DashParameters parameter = settings.arguments;
+      return DashScreen(title: parameter.title);
+    });
+  }
+  if (settings.name == AppRoutes.pageAddEvent) {
+    return MaterialPageRoute(builder: (context) {
+      AddParameters parameter = settings.arguments;
+      return AddScreen(title: parameter.title);
+    });
   }
 }
