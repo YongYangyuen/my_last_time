@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Container(
               decoration: BoxDecoration(color: Colors.blue[400]),
-              height: MediaQuery.of(context).size.width - 320,
+              height: MediaQuery.of(context).size.height - 815,
               width: MediaQuery.of(context).size.width,
               child: Text(
                 'Last Time',
@@ -114,15 +114,15 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.width - 200,
+              height: MediaQuery.of(context).size.height - 700,
               child: Image(image: AssetImage('assets/clock.png')),
             ),
             Container(
-              height: MediaQuery.of(context).size.width - 390,
+              height: MediaQuery.of(context).size.height - 890,
               child: Text(''),
             ),
             Container(
-              height: MediaQuery.of(context).size.width - 350,
+              height: MediaQuery.of(context).size.height - 850,
               width: MediaQuery.of(context).size.width,
               child: Text(
                 'First Name',
@@ -131,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.width - 350,
+              height: MediaQuery.of(context).size.height - 850,
               child: TextField(
                 controller: firstName,
                 textAlign: TextAlign.center,
@@ -139,11 +139,11 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.width - 380,
+              height: MediaQuery.of(context).size.height - 850,
               child: Text(''),
             ),
             Container(
-              height: MediaQuery.of(context).size.width - 350,
+              height: MediaQuery.of(context).size.height - 850,
               width: MediaQuery.of(context).size.width,
               child: Text(
                 'Last Name',
@@ -152,18 +152,18 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.width - 350,
+              height: MediaQuery.of(context).size.height - 850,
               child: TextField(
                   controller: lastName,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20)),
             ),
             Container(
-              height: MediaQuery.of(context).size.width - 380,
+              height: MediaQuery.of(context).size.height - 850,
               child: Text(''),
             ),
             Container(
-              height: MediaQuery.of(context).size.width - 350,
+              height: MediaQuery.of(context).size.height - 850,
               width: MediaQuery.of(context).size.width,
               child: Text(
                 'Gender',
