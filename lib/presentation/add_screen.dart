@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_last_time/config/routes.dart';
-import 'package:my_last_time/main.dart';
 import 'package:my_last_time/presentation/dash_screen.dart';
 import 'package:numeric_keyboard/numeric_keyboard.dart';
 
@@ -17,14 +16,6 @@ class AddScreen extends StatefulWidget {
   AddScreen({this.title});
   @override
   _AddScreenState createState() => _AddScreenState();
-
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: {
-        AppRoutes.home: (context) => MyHomePage(),
-      },
-    );
-  }
 }
 
 class _AddScreenState extends State<AddScreen> {
@@ -112,7 +103,10 @@ class _AddScreenState extends State<AddScreen> {
                         print(myControllerTextDay.text);
                         _myDashScreen.updateData(myControllerTextEvent.text,
                             int.parse(myControllerTextDay.text));
-                        Navigator.of(context).pushNamed(AppRoutes.home);
+                        Navigator.of(context).pushNamed(AppRoutes.pageDashEvent,
+                            arguments: DashParameters("Dashboard"));
+                            myControllerTextEvent.clear();
+                            myControllerTextDay.clear();
                       },
                       leftIcon: Icon(
                         Icons.check,

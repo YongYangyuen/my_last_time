@@ -3,15 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_last_time/config/routes.dart';
 import 'package:my_last_time/data/all_data.dart';
 import 'package:my_last_time/main.dart';
-
 import 'add_screen.dart';
+import 'detail_screen.dart';
 
 List events = ['Run at staduim', 'Sweep the floor', 'Mop the floor'];
 List days = [3, 7, 7];
 TextEditingController event = TextEditingController();
 TextEditingController day = TextEditingController();
-bool isEdit = false;
-int editIndex;
 
 class DashParameters {
   final String title;
@@ -78,27 +76,26 @@ class _DashScreenState extends State<DashScreen> {
             return Column(
               children: <Widget>[
                 ListTile(
-                  // onTap: () => Navigator.of(context).pushNamed(
-                  //     AppRoutes.pageShowData,
-                  //     arguments: ShowParameters(index)),
+                  onTap: () => Navigator.of(context).pushNamed(
+                      AppRoutes.pageDetailEvent,
+                      arguments: DetailParameters(index)),
                   leading: Text(
                     events[index],
-                    style: TextStyle(
-                      fontSize: 30,
-                    ),
-                  ),
-                  title: Text(
-                    '''every
-                      day(s)''',
                     style: TextStyle(
                       fontSize: 20,
                     ),
                   ),
+                  title: Text(
+                    '',
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
                   trailing: Text(
-                    days[index].toString(),
+                    'every ' + days[index].toString() + ' day(s)',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 55,
+                      fontSize: 16,
                     ),
                   ),
                 ),
@@ -109,8 +106,12 @@ class _DashScreenState extends State<DashScreen> {
         )),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context).pushNamed(AppRoutes.pageAddEvent,
-            arguments: AddParameters("Add Event")),
+        onPressed: () => {
+          Navigator.of(context).pushNamed(AppRoutes.pageAddEvent,
+              arguments: AddParameters("Add Event")),
+          myControllerTextEvent.clear(),
+          myControllerTextDay.clear(),
+        },
         tooltip: 'Add Event',
         child: Icon(Icons.add),
       ),
