@@ -3,7 +3,6 @@ import 'package:my_last_time/config/routes.dart';
 import 'add_screen.dart';
 import 'dash_screen.dart';
 
-
 bool isEdit = false;
 int editIndex;
 
@@ -76,7 +75,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     isEdit = true,
                     editIndex = widget.index,
                     myControllerTextEvent.text = events[widget.index],
-                    myControllerTextDay.text = days[widget.index],
+                    myControllerTextDay.text = days[widget.index].toString(),
                     Navigator.of(context).pushNamed(AppRoutes.pageAddEvent,
                         arguments: AddParameters("Edit Event")),
                   },

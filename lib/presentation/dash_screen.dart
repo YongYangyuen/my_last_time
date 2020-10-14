@@ -76,9 +76,11 @@ class _DashScreenState extends State<DashScreen> {
             return Column(
               children: <Widget>[
                 ListTile(
-                  onTap: () => Navigator.of(context).pushNamed(
-                      AppRoutes.pageDetailEvent,
-                      arguments: DetailParameters(index)),
+                  onTap: () => {
+                    isEdit = false,
+                    Navigator.of(context).pushNamed(AppRoutes.pageDetailEvent,
+                        arguments: DetailParameters(index)),
+                  },
                   leading: Text(
                     events[index],
                     style: TextStyle(
@@ -107,6 +109,7 @@ class _DashScreenState extends State<DashScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => {
+          isEdit = false,
           Navigator.of(context).pushNamed(AppRoutes.pageAddEvent,
               arguments: AddParameters("Add Event")),
           myControllerTextEvent.clear(),
