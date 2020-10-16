@@ -114,7 +114,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     Text(
                       time.days.toString() + ' day(s)',
                       style: TextStyle(
-                          fontSize: 30,
+                          fontSize: 35,
                           color: Colors.pink,
                           fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
