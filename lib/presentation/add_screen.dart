@@ -105,8 +105,8 @@ class _AddScreenState extends State<AddScreen> {
                             int.parse(myControllerTextDay.text));
                         Navigator.of(context).pushNamed(AppRoutes.pageDashEvent,
                             arguments: DashParameters("Dashboard"));
-                            myControllerTextEvent.clear();
-                            myControllerTextDay.clear();
+                        myControllerTextEvent.clear();
+                        myControllerTextDay.clear();
                       },
                       leftIcon: Icon(
                         Icons.check,

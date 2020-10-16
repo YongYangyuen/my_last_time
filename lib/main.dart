@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Container(
               decoration: BoxDecoration(color: Colors.blue[400]),
-              height: MediaQuery.of(context).size.height - 815,
+              height: MediaQuery.of(context).size.height * 0.095,
               width: MediaQuery.of(context).size.width,
               child: Text(
                 'Last Time',
@@ -71,15 +71,15 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height - 700,
+              height: MediaQuery.of(context).size.height * 0.2,
               child: Image(image: AssetImage('assets/clock.png')),
             ),
             Container(
-              height: MediaQuery.of(context).size.height - 890,
+              height: MediaQuery.of(context).size.height * 0.01,
               child: Text(''),
             ),
             Container(
-              height: MediaQuery.of(context).size.height - 850,
+              height: MediaQuery.of(context).size.height * 0.06,
               width: MediaQuery.of(context).size.width,
               child: Text(
                 'First Name',
@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Form(
               key: _formKeyFirst,
               child: Container(
-                height: MediaQuery.of(context).size.height - 850,
+                height: MediaQuery.of(context).size.height * 0.07,
                 child: TextFormField(
                   validator: (firstName) {
                     if (firstName.isEmpty) {
@@ -106,11 +106,11 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height - 850,
+              height: MediaQuery.of(context).size.height * 0.02,
               child: Text(''),
             ),
             Container(
-              height: MediaQuery.of(context).size.height - 850,
+              height: MediaQuery.of(context).size.height * 0.06,
               width: MediaQuery.of(context).size.width,
               child: Text(
                 'Last Name',
@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Form(
               key: _formKeyLast,
               child: Container(
-                height: MediaQuery.of(context).size.height - 850,
+                height: MediaQuery.of(context).size.height * 0.07,
                 child: TextFormField(
                     validator: (lastName) {
                       if (lastName.isEmpty) {
@@ -136,11 +136,11 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height - 850,
+              height: MediaQuery.of(context).size.height * 0.02,
               child: Text(''),
             ),
             Container(
-              height: MediaQuery.of(context).size.height - 850,
+              height: MediaQuery.of(context).size.height * 0.06,
               width: MediaQuery.of(context).size.width,
               child: Text(
                 'Gender',
@@ -177,7 +177,9 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               height: 50,
               width: 120,
-              child: ElevatedButton(
+              child: RaisedButton(
+                color: Colors.blue,
+                elevation: 5,
                 onPressed: () => {
                   if (_formKeyFirst.currentState.validate() &&
                       _formKeyLast.currentState.validate())

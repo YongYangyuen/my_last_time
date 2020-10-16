@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:my_last_time/config/routes.dart';
 import 'add_screen.dart';
 import 'dash_screen.dart';
@@ -90,6 +92,34 @@ class _DetailScreenState extends State<DetailScreen> {
                 )),
           ),
         ]),
+        Container(
+          height: MediaQuery.of(context).size.height * 0.1,
+          alignment: Alignment.center,
+          child: Text(
+            'Remaining Time',
+            style: TextStyle(fontSize: 30),
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(color: Colors.black),
+          height: MediaQuery.of(context).size.height * 0.2,
+          alignment: Alignment.center,
+          child: CountdownTimer(
+            endTime: endTime[widget.index],
+            widgetBuilder: (_, CurrentRemainingTime time) {
+              return Text(
+                '''${time.days} day(s)
+
+${time.hours} hr ${time.min} min ${time.sec} sec''',
+                style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.pink,
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              );
+            },
+          ),
+        )
       ]),
     );
   }
