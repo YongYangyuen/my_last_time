@@ -102,24 +102,76 @@ class _DetailScreenState extends State<DetailScreen> {
         ),
         Container(
           decoration: BoxDecoration(color: Colors.black),
-          height: MediaQuery.of(context).size.height * 0.2,
+          height: MediaQuery.of(context).size.height * 0.25,
           alignment: Alignment.center,
           child: CountdownTimer(
             endTime: endTime[widget.index],
-            widgetBuilder: (_, CurrentRemainingTime time) {
-              return Text(
-                '''${time.days} day(s)
+            widgetBuilder: (BuildContext context, CurrentRemainingTime time) {
+              List<Widget> list = [];
+              if (time.days != null) {
+                list.add(Column(
+                  children: <Widget>[
+                    Text(
+                      time.days.toString() + ' day(s)',
+                      style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.pink,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ));
+              }
+              if (time.hours != null) {
+                list.add(Row(
+                  children: <Widget>[
+                    Text(
+                      time.hours.toString() + ' hr ',
+                      style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.pink,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ));
+              }
+              if (time.min != null) {
+                list.add(Row(
+                  children: <Widget>[
+                    Text(
+                      time.min.toString() + ' min ',
+                      style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.pink,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ));
+              }
+              if (time.sec != null) {
+                list.add(Row(
+                  children: <Widget>[
+                    Text(
+                      time.sec.toString() + ' sec ',
+                      style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.pink,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ));
+              }
 
-${time.hours} hr ${time.min} min ${time.sec} sec''',
-                style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.pink,
-                    fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: list,
               );
             },
           ),
-        )
+        ),
       ]),
     );
   }
