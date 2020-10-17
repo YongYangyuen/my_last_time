@@ -31,7 +31,6 @@ class _DetailScreenState extends State<DetailScreen> {
   bool _isPause = false;
 
   DashScreen _myDashScreen = new DashScreen();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -189,11 +188,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 alignment: Alignment.topRight,
                 child: MaterialButton(
                   onPressed: () => {
-                    setState(() {
-                      _controller.restart();
-                      _isPause = false;
-                      _controller.resume();
-                    })
+                    showAlertDialog(context),
                   },
                   color: Colors.blue,
                   textColor: Colors.white,
@@ -211,10 +206,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 alignment: Alignment.center,
                 child: MaterialButton(
                   onPressed: () => {
-                    isEdit = true,
-                    editIndex = widget.index,
-                    _myDashScreen.updateData(events[widget.index],
-                        int.parse(daysForShow[widget.index].toString())),
+                    showAlertDialog2(context),
                   },
                   color: Colors.green,
                   textColor: Colors.white,
@@ -251,6 +243,74 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ]),
       ]),
+    );
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the buttons
+    Widget cancelButton = FlatButton(
+      child: Text("NO"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+    Widget continueButton = FlatButton(
+      child: Text("YES"),
+      onPressed: () {
+        setState(() {
+          _controller.restart();
+          _isPause = false;
+          _controller.resume();
+        });
+        Navigator.pop(context);
+      },
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Caution"),
+      content: Text('''Do you want to skip this round?
+The time will be reseted.'''),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  showAlertDialog2(BuildContext context) {
+    // set up the buttons
+    Widget continueButton2 = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        setState(() {
+          _controller.restart();
+          _isPause = false;
+          _controller.resume();
+        });
+        Navigator.pop(context);
+      },
+    );
+    AlertDialog alert2 = AlertDialog(
+      title: Text("Congratulations !!!"),
+      content: Text('''You've just finished this event.
+The time will be reseted for next round.'''),
+      actions: [
+        continueButton2,
+      ],
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert2;
+      },
     );
   }
 }
