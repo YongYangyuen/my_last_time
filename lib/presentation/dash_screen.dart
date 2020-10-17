@@ -7,14 +7,10 @@ import 'add_screen.dart';
 import 'detail_screen.dart';
 
 List events = ['Run at staduim', 'Sweep the floor', 'Mop the floor'];
-List days = [1, 2, 3];
-int endTimeBase = DateTime.now().millisecondsSinceEpoch;
-int endTime1Day = 1000 * 60 * 60 * 24; // 1 day
-List endTime = [
-  endTimeBase + endTime1Day,
-  endTimeBase + endTime1Day * 2,
-  endTimeBase + endTime1Day * 3
-];
+int endTime1Day = 60 * 60 * 24; // 1 day
+List days = [endTime1Day, endTime1Day * 2, endTime1Day * 3];
+List daysForShow = [1, 2, 3];
+
 TextEditingController event = TextEditingController();
 TextEditingController day = TextEditingController();
 
@@ -33,12 +29,12 @@ class DashScreen extends StatefulWidget {
   void updateData(String event, int day) {
     if (isEdit) {
       events[editIndex] = event;
-      days[editIndex] = day;
-      endTime[editIndex] = endTimeBase + endTime1Day * day;
+      days[editIndex] = endTime1Day * day;
+      daysForShow[editIndex] = day;
     } else {
       events.add(event);
-      days.add(day);
-      endTime.add(endTimeBase + endTime1Day * day);
+      days.add(endTime1Day * day);
+      daysForShow.add(day);
     }
     isEdit = false;
   }
@@ -103,7 +99,7 @@ class _DashScreenState extends State<DashScreen> {
                     ),
                   ),
                   trailing: Text(
-                    'every ' + days[index].toString() + ' day(s)',
+                    'every ' + daysForShow[index].toString() + ' day(s)',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
