@@ -27,6 +27,8 @@ class _DetailScreenState extends State<DetailScreen> {
     super.initState();
   }
 
+  DashScreen _myDashScreen = new DashScreen();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,69 +111,114 @@ class _DetailScreenState extends State<DetailScreen> {
             widgetBuilder: (BuildContext context, CurrentRemainingTime time) {
               List<Widget> list = [];
               if (time.days != null) {
-                list.add(Column(
-                  children: <Widget>[
-                    Text(
-                      time.days.toString() + ' day(s)',
-                      style: TextStyle(
-                          fontSize: 35,
-                          color: Colors.pink,
-                          fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+                list.add(Center(
+                  child: Text(
+                    time.days.toString() + ' day(s)',
+                    style: TextStyle(
+                        fontSize: 35,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
                 ));
               }
               if (time.hours != null) {
-                list.add(Row(
-                  children: <Widget>[
-                    Text(
-                      time.hours.toString() + ' hr ',
-                      style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.pink,
-                          fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+                list.add(Center(
+                  child: Text(
+                    time.hours.toString() + ' hr ',
+                    style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.pink,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
                 ));
               }
               if (time.min != null) {
-                list.add(Row(
-                  children: <Widget>[
-                    Text(
-                      time.min.toString() + ' min ',
-                      style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.pink,
-                          fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+                list.add(Center(
+                  child: Text(
+                    time.min.toString() + ' min ',
+                    style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.pink,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
                 ));
               }
               if (time.sec != null) {
-                list.add(Row(
-                  children: <Widget>[
-                    Text(
-                      time.sec.toString() + ' sec ',
-                      style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.pink,
-                          fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+                list.add(Center(
+                  child: Text(
+                    time.sec.toString() + ' sec ',
+                    style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.pink,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
                 ));
               }
 
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: list,
+              return Center(
+                child: Stack(children: [
+                  Padding(
+                    padding: EdgeInsets.all(25.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [list[0]],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [list[1], list[2], list[3]],
+                  ),
+                ]),
               );
             },
           ),
         ),
+        Stack(children: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Container(
+                alignment: Alignment.topLeft,
+                child: MaterialButton(
+                  onPressed: () => {
+                    isEdit = true,
+                    editIndex = widget.index,
+                  },
+                  color: Colors.red,
+                  textColor: Colors.white,
+                  child: Icon(
+                    Icons.pause,
+                    size: 40,
+                  ),
+                  padding: EdgeInsets.all(16),
+                  shape: CircleBorder(),
+                )),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Container(
+                alignment: Alignment.topRight,
+                child: MaterialButton(
+                  onPressed: () => {
+                    isEdit = true,
+                    editIndex = widget.index,
+                    _myDashScreen.updateData(events[widget.index],
+                        int.parse(days[widget.index].toString())),
+                  },
+                  color: Colors.blue[600],
+                  textColor: Colors.white,
+                  child: Icon(
+                    Icons.skip_next,
+                    size: 40,
+                  ),
+                  padding: EdgeInsets.all(16),
+                  shape: CircleBorder(),
+                )),
+          ),
+        ]),
       ]),
     );
   }
