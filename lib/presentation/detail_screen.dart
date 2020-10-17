@@ -113,9 +113,9 @@ class _DetailScreenState extends State<DetailScreen> {
               if (time.days != null) {
                 list.add(Center(
                   child: Text(
-                    time.days.toString() + ' day(s)',
+                    time.days.toString() + ' day(s) & ',
                     style: TextStyle(
-                        fontSize: 35,
+                        fontSize: 25,
                         color: Colors.blue,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
@@ -127,7 +127,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   child: Text(
                     time.hours.toString() + ' hr ',
                     style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 25,
                         color: Colors.pink,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
@@ -139,7 +139,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   child: Text(
                     time.min.toString() + ' min ',
                     style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 25,
                         color: Colors.pink,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
@@ -151,7 +151,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   child: Text(
                     time.sec.toString() + ' sec ',
                     style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 25,
                         color: Colors.pink,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
@@ -162,15 +162,20 @@ class _DetailScreenState extends State<DetailScreen> {
               return Center(
                 child: Stack(children: [
                   Padding(
-                    padding: EdgeInsets.all(25.0),
+                    padding: EdgeInsets.all(10.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: [list[0]],
+                      children: [
+                        Container(
+                            height: MediaQuery.of(context).size.height * 0.08,
+                            width: MediaQuery.of(context).size.width,
+                            child: Image(image: AssetImage('assets/clock.png')))
+                      ],
                     ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [list[1], list[2], list[3]],
+                    children: list,
                   ),
                 ]),
               );
@@ -208,7 +213,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     _myDashScreen.updateData(events[widget.index],
                         int.parse(days[widget.index].toString())),
                   },
-                  color: Colors.blue[600],
+                  color: Colors.blue,
                   textColor: Colors.white,
                   child: Icon(
                     Icons.skip_next,
@@ -217,6 +222,50 @@ class _DetailScreenState extends State<DetailScreen> {
                   padding: EdgeInsets.all(16),
                   shape: CircleBorder(),
                 )),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Container(
+                alignment: Alignment.center,
+                child: MaterialButton(
+                  onPressed: () => {
+                    isEdit = true,
+                    editIndex = widget.index,
+                    _myDashScreen.updateData(events[widget.index],
+                        int.parse(days[widget.index].toString())),
+                  },
+                  color: Colors.green,
+                  textColor: Colors.white,
+                  child: Icon(
+                    Icons.done,
+                    size: 40,
+                  ),
+                  padding: EdgeInsets.all(16),
+                  shape: CircleBorder(),
+                )),
+          ),
+        ]),
+        Stack(children: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(30.0, 8.0, 0, 0),
+            child: Container(
+                alignment: Alignment.topLeft,
+                child: Text('PAUSE',
+                    style: TextStyle(fontWeight: FontWeight.bold))),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 8.0, 35.0, 0),
+            child: Container(
+                alignment: Alignment.topRight,
+                child: Text('SKIP',
+                    style: TextStyle(fontWeight: FontWeight.bold))),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Container(
+                alignment: Alignment.center,
+                child: Text('DONE',
+                    style: TextStyle(fontWeight: FontWeight.bold))),
           ),
         ]),
       ]),
