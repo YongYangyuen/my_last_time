@@ -191,6 +191,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       print(gender),
                       Navigator.of(context).pushNamed(AppRoutes.pageDashEvent,
                           arguments: DashParameters("Dashboard")),
+                      showAlertDialog3(context),
                     },
                 },
                 child: Text(
@@ -202,6 +203,31 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+
+  showAlertDialog3(BuildContext context) {
+    // set up the buttons
+    Widget continueButton3 = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        setState(() {});
+        Navigator.pop(context);
+      },
+    );
+    AlertDialog alert3 = AlertDialog(
+      title: Text("First step"),
+      content: Text('''You need to press Add button for adding your event.'''),
+      actions: [
+        continueButton3,
+      ],
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert3;
+      },
     );
   }
 }

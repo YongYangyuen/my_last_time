@@ -7,6 +7,8 @@ import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 
 bool isEdit = false;
 int editIndex;
+CountDownController _controller = CountDownController();
+bool _isPause = false;
 
 class DetailParameters {
   final int index;
@@ -26,9 +28,6 @@ class _DetailScreenState extends State<DetailScreen> {
   void initState() {
     super.initState();
   }
-
-  CountDownController _controller = CountDownController();
-  bool _isPause = false;
 
   DashScreen _myDashScreen = new DashScreen();
   @override
@@ -109,9 +108,9 @@ class _DetailScreenState extends State<DetailScreen> {
             decoration: BoxDecoration(color: Colors.black),
             height: MediaQuery.of(context).size.height * 0.25,
             alignment: Alignment.center,
-            child: CircularCountDownTimer(
+            child: CircularCountDownTimer (
               // Countdown duration in Seconds
-              duration: days[widget.index],
+              duration: 3,
 
               // Controller to control (i.e Pause, Resume, Restart) the Countdown
               controller: _controller,
@@ -153,6 +152,8 @@ class _DetailScreenState extends State<DetailScreen> {
               onComplete: () {
                 // Here, do whatever you want
                 print('Countdown Ended');
+                timesUp[widget.index] = true;
+                setState(() {});
               },
             )),
         Stack(children: [
@@ -242,6 +243,15 @@ class _DetailScreenState extends State<DetailScreen> {
                     style: TextStyle(fontWeight: FontWeight.bold))),
           ),
         ]),
+        Visibility(
+          visible: timesUp[widget.index],
+          child: Container(
+              height: MediaQuery.of(context).size.height * 0.15,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(color: Colors.orange),
+              child: Text('It\'s time to do this event now.',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))),
+        ),
       ]),
     );
   }
@@ -261,6 +271,7 @@ class _DetailScreenState extends State<DetailScreen> {
           _controller.restart();
           _isPause = false;
           _controller.resume();
+          timesUp[widget.index] = false;
         });
         Navigator.pop(context);
       },
@@ -293,6 +304,7 @@ The time will be reseted.'''),
           _controller.restart();
           _isPause = false;
           _controller.resume();
+          timesUp[widget.index] = false;
         });
         Navigator.pop(context);
       },

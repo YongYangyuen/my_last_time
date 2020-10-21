@@ -5,11 +5,16 @@ import 'package:my_last_time/data/all_data.dart';
 import 'package:my_last_time/main.dart';
 import 'add_screen.dart';
 import 'detail_screen.dart';
+import 'dart:async';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+import 'detail_screen.dart';
 
-List events = ['Run at staduim', 'Sweep the floor', 'Mop the floor'];
+List events = [];
 int endTime1Day = 60 * 60 * 24; // 1 day
-List days = [endTime1Day, endTime1Day * 2, endTime1Day * 3];
-List daysForShow = [1, 2, 3];
+List days = [];
+List daysForShow = [];
+List timesUp = [];
 
 TextEditingController event = TextEditingController();
 TextEditingController day = TextEditingController();
@@ -31,10 +36,12 @@ class DashScreen extends StatefulWidget {
       events[editIndex] = event;
       days[editIndex] = endTime1Day * day;
       daysForShow[editIndex] = day;
+      timesUp[editIndex] = false;
     } else {
       events.add(event);
       days.add(endTime1Day * day);
       daysForShow.add(day);
+      timesUp.add(false);
     }
     isEdit = false;
   }
@@ -81,6 +88,7 @@ class _DashScreenState extends State<DashScreen> {
             return Column(
               children: <Widget>[
                 ListTile(
+                  tileColor: timesUp[index] ? Colors.orange : Colors.green,
                   onTap: () => {
                     isEdit = false,
                     Navigator.of(context).pushNamed(AppRoutes.pageDetailEvent,
