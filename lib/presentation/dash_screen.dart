@@ -91,8 +91,10 @@ class _DashScreenState extends State<DashScreen> {
                   tileColor: timesUp[index] ? Colors.orange : Colors.green,
                   onTap: () => {
                     isEdit = false,
-                    Navigator.of(context).pushNamed(AppRoutes.pageDetailEvent,
-                        arguments: DetailParameters(index)),
+                    Navigator.of(context)
+                        .pushNamed(AppRoutes.pageDetailEvent,
+                            arguments: DetailParameters(index))
+                        .then((data) => {this.setState(() {})}),
                   },
                   leading: Text(
                     events[index],
