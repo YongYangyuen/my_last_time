@@ -87,33 +87,67 @@ class _DashScreenState extends State<DashScreen> {
             itemBuilder: (context, index) {
               return Column(
                 children: <Widget>[
-                  ListTile(
-                    hoverColor: timesUp[index] ? Colors.orange : Colors.green,
-                    onTap: () => {
-                      isEdit = false,
-                      Navigator.of(context)
-                          .pushNamed(AppRoutes.pageDetailEvent,
-                              arguments: DetailParameters(index))
-                          .then((data) => {this.setState(() {})}),
-                    },
-                    leading: Text(
-                      events[index],
-                      style: TextStyle(
-                        fontSize: 20,
+                  Visibility(
+                    visible: timesUp[index],
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 16.0, right: 32.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
+                          Text(
+                            "Today",
+                            style: TextStyle(
+                              fontSize: 48.0,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    title: Text(
-                      '',
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                    trailing: Text(
-                      'every ' + daysForShow[index].toString() + ' day(s)',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: Card(
+                      color: timesUp[index] ? Colors.orange : Colors.green,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      elevation: 4,
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      child: ListTile(
+                          onTap: () => {
+                                isEdit = false,
+                                Navigator.of(context)
+                                    .pushNamed(AppRoutes.pageDetailEvent,
+                                        arguments: DetailParameters(index))
+                                    .then((data) => {this.setState(() {})}),
+                              },
+                          leading: Icon(
+                            Icons.event,
+                            color: Theme.of(context).iconTheme.color,
+                          ),
+                          title: Text(
+                            events[index],
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(
+                            'every ' +
+                                daysForShow[index].toString() +
+                                ' day(s)',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          trailing: timesUp[index]
+                              ? Icon(
+                                  Icons.warning,
+                                  color: Colors.white,
+                                )
+                              : Icon(
+                                  Icons.check_circle_outline,
+                                  color: Colors.white,
+                                )),
                     ),
                   ),
                   Divider(), //                           <-- Divider
