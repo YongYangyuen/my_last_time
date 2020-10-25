@@ -2,12 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_last_time/config/routes.dart';
 import 'package:my_last_time/data/all_data.dart';
-import 'package:my_last_time/main.dart';
 import 'add_screen.dart';
-import 'detail_screen.dart';
-import 'dart:async';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
 import 'detail_screen.dart';
 
 List events = [];
