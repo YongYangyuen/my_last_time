@@ -62,77 +62,88 @@ class _DashScreenState extends State<DashScreen> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Row(
-          children: <Widget>[
-            Text(widget.title),
-            BlocBuilder<DataCubit, String>(builder: (context, state) {
-              return Text(
-                ' - Hi ' + '$state',
-                style: Theme.of(context).textTheme.headline6,
-              );
-            }),
-          ],
+        appBar: AppBar(
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Row(
+            children: <Widget>[
+              Text(widget.title),
+              BlocBuilder<DataCubit, String>(builder: (context, state) {
+                return Text(
+                  ' - Hi ' + '$state',
+                  style: Theme.of(context).textTheme.headline6,
+                );
+              }),
+            ],
+          ),
+          automaticallyImplyLeading: false,
         ),
-        automaticallyImplyLeading: false,
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Container(
-            child: ListView.builder(
-          itemCount: events.length,
-          itemBuilder: (context, index) {
-            return Column(
-              children: <Widget>[
-                ListTile(
-                  hoverColor: timesUp[index] ? Colors.orange : Colors.green,
-                  onTap: () => {
-                    isEdit = false,
-                    Navigator.of(context)
-                        .pushNamed(AppRoutes.pageDetailEvent,
-                            arguments: DetailParameters(index))
-                        .then((data) => {this.setState(() {})}),
-                  },
-                  leading: Text(
-                    events[index],
-                    style: TextStyle(
-                      fontSize: 20,
+        body: Center(
+          // Center is a layout widget. It takes a single child and positions it
+          // in the middle of the parent.
+          child: Container(
+              child: ListView.builder(
+            itemCount: events.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: <Widget>[
+                  ListTile(
+                    hoverColor: timesUp[index] ? Colors.orange : Colors.green,
+                    onTap: () => {
+                      isEdit = false,
+                      Navigator.of(context)
+                          .pushNamed(AppRoutes.pageDetailEvent,
+                              arguments: DetailParameters(index))
+                          .then((data) => {this.setState(() {})}),
+                    },
+                    leading: Text(
+                      events[index],
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                    title: Text(
+                      '',
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                    trailing: Text(
+                      'every ' + daysForShow[index].toString() + ' day(s)',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
-                  title: Text(
-                    '',
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                  trailing: Text(
-                    'every ' + daysForShow[index].toString() + ' day(s)',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-                Divider(), //                           <-- Divider
-              ],
-            );
-          },
-        )),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => {
-          isEdit = false,
-          Navigator.of(context).pushNamed(AppRoutes.pageAddEvent,
-              arguments: AddParameters("Add Event")),
-          myControllerTextEvent.clear(),
-          myControllerTextDay.clear(),
-        },
-        tooltip: 'Add Event',
-        child: Icon(Icons.add),
-      ),
-    );
+                  Divider(), //                           <-- Divider
+                ],
+              );
+            },
+          )),
+        ),
+        floatingActionButton: SizedBox(
+          height: 50,
+          child: RaisedButton(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+                side: BorderSide(color: Colors.blue)),
+            color: Colors.blue,
+            splashColor: Colors.blue,
+            textTheme: ButtonTextTheme.accent,
+            textColor: Colors.white,
+            onPressed: () => {
+              isEdit = false,
+              Navigator.of(context).pushNamed(AppRoutes.pageAddEvent,
+                  arguments: AddParameters("Add Event")),
+              myControllerTextEvent.clear(),
+              myControllerTextDay.clear(),
+            },
+            child: Text(
+              'Add Event',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+            ),
+          ),
+        ));
   }
 }
