@@ -217,7 +217,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
     AlertDialog alert3 = AlertDialog(
       title: Text("First step"),
-      content: Text('''You need to press Add button for adding your event.'''),
+      content:
+          Text('''You need to press Add Event button for adding your event.'''),
       actions: [
         continueButton3,
       ],
