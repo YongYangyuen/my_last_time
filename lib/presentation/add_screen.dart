@@ -29,6 +29,7 @@ class _AddScreenState extends State<AddScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.cyan[100],
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
           title: Text(widget.title),
