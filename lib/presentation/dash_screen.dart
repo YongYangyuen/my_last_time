@@ -68,9 +68,9 @@ class _DashScreenState extends State<DashScreen> {
         title: Row(
           children: <Widget>[
             Text(widget.title),
-            BlocBuilder<DataCubit, List>(builder: (context, state) {
+            BlocBuilder<DataCubit, String>(builder: (context, state) {
               return Text(
-                ' - Hi ' + gender + ' ' + firstName.text + ' ' + lastName.text,
+                ' - Hi ' + '$state',
                 style: Theme.of(context).textTheme.headline6,
               );
             }),
@@ -88,7 +88,7 @@ class _DashScreenState extends State<DashScreen> {
             return Column(
               children: <Widget>[
                 ListTile(
-                  tileColor: timesUp[index] ? Colors.orange : Colors.green,
+                  hoverColor: timesUp[index] ? Colors.orange : Colors.green,
                   onTap: () => {
                     isEdit = false,
                     Navigator.of(context)

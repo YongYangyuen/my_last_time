@@ -1,15 +1,7 @@
 import 'package:bloc/bloc.dart';
 
-class DataCubit extends Cubit<List<PersonalData>> {
-  DataCubit() : super([]);
+class DataCubit extends Cubit<String> {
+  DataCubit() : super('');
 
-  void addData(data) => {state.add(data)};
-}
-
-class PersonalData {
-  String firstName;
-  String lastName;
-  String gender;
-
-  PersonalData(this.firstName, this.lastName, this.gender);
+  void addFullName(String fullName) => emit(state + fullName);
 }

@@ -184,8 +184,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   if (_formKeyFirst.currentState.validate() &&
                       _formKeyLast.currentState.validate())
                     {
-                      context.bloc<DataCubit>().addData(
-                          PersonalData(firstName.text, lastName.text, gender)),
+                      context.bloc<DataCubit>().addFullName(
+                          gender + ' ' + firstName.text + ' ' + lastName.text),
                       print(firstName),
                       print(lastName),
                       print(gender),

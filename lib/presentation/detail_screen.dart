@@ -30,6 +30,7 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   DashScreen _myDashScreen = new DashScreen();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,9 +109,9 @@ class _DetailScreenState extends State<DetailScreen> {
             decoration: BoxDecoration(color: Colors.black),
             height: MediaQuery.of(context).size.height * 0.25,
             alignment: Alignment.center,
-            child: CircularCountDownTimer (
+            child: CircularCountDownTimer(
               // Countdown duration in Seconds
-              duration: 3,
+              duration: days[widget.index],
 
               // Controller to control (i.e Pause, Resume, Restart) the Countdown
               controller: _controller,
@@ -173,7 +174,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       }
                     })
                   },
-                  color: Colors.red,
+                  color: _isPause ? Colors.orange : Colors.red,
                   textColor: Colors.white,
                   child: Icon(
                     _isPause ? Icons.play_arrow : Icons.pause,
@@ -246,7 +247,7 @@ class _DetailScreenState extends State<DetailScreen> {
         Visibility(
           visible: timesUp[widget.index],
           child: Container(
-              height: MediaQuery.of(context).size.height * 0.15,
+              height: MediaQuery.of(context).size.height * 0.1,
               alignment: Alignment.center,
               decoration: BoxDecoration(color: Colors.orange),
               child: Text('It\'s time to do this event now.',
