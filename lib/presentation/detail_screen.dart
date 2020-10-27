@@ -249,9 +249,33 @@ class _DetailScreenState extends State<DetailScreen> {
               height: MediaQuery.of(context).size.height * 0.1,
               alignment: Alignment.center,
               decoration: BoxDecoration(color: Colors.orange),
-              child: Text('It\'s time to do this event now.',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))),
-        ),
+              child: Stack(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(25.0),
+                    alignment: Alignment.centerLeft,
+                    child: Icon(
+                      Icons.warning,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    child: Text('It\'s time to do this event now.',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20)),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(25.0),
+                    alignment: Alignment.centerRight,
+                    child: Icon(
+                      Icons.warning,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              )),
+        )
       ]),
     );
   }
