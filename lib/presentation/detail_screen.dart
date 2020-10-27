@@ -29,8 +29,6 @@ class _DetailScreenState extends State<DetailScreen> {
     super.initState();
   }
 
-  DashScreen _myDashScreen = new DashScreen();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

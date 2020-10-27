@@ -1,6 +1,6 @@
 import 'dart:async';
-
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_last_time/config/routes.dart';
@@ -9,7 +9,7 @@ import 'add_screen.dart';
 import 'detail_screen.dart';
 import 'package:my_last_time/presentation/detail_screen.dart';
 
-int endTime1Day = Duration(days: 1).inSeconds; // 1 day
+int endTime1Day = Duration(seconds: 3).inSeconds; // 1 day
 List events = [];
 List days = [];
 List daysTmp = [];
@@ -59,7 +59,12 @@ class DashScreen extends StatefulWidget {
     // Start the periodic timer which prints something every 1 seconds
     timer = new Timer.periodic(new Duration(seconds: 1), (time) {
       for (int i = 0; i < days.length; i++) {
-        days[i]--;
+        if (days[i] > 0)
+          days[i]--;
+        else {
+          print('Countdown Ended');
+          timesUp[i] = true;
+        }
         print(days[i]);
       }
     });
@@ -238,8 +243,10 @@ class _DashScreenState extends State<DashScreen> {
             textColor: Colors.white,
             onPressed: () => {
               isEdit = false,
-              Navigator.of(context).pushNamed(AppRoutes.pageAddEvent,
-                  arguments: AddParameters("Add Event")),
+              Navigator.of(context)
+                  .pushNamed(AppRoutes.pageAddEvent,
+                      arguments: AddParameters("Add Event"))
+                  .then((data) => {this.setState(() {})}),
               myControllerTextEvent.clear(),
               myControllerTextDay.clear(),
             },
