@@ -59,9 +59,9 @@ class DashScreen extends StatefulWidget {
     // Start the periodic timer which prints something every 1 seconds
     timer = new Timer.periodic(new Duration(seconds: 1), (time) {
       for (int i = 0; i < days.length; i++) {
-        if (days[i] > 0)
-          days[i]--;
-        else {
+        if (days[i] > 0) {
+          if (!isPause[i]) days[i]--;
+        } else {
           print('Countdown Ended');
           timesUp[i] = true;
         }
@@ -207,8 +207,7 @@ class _DashScreenState extends State<DashScreen> {
                                       .then((data) => {
                                             this.setState(() {
                                               if (isPause[index]) {
-                                                isPause[index] = false;
-                                                controller[index].resume();
+                                                controller[index].pause();
                                               }
                                             })
                                           }),

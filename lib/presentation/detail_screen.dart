@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:my_last_time/config/routes.dart';
@@ -24,9 +23,25 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+  String _now;
+  Timer _everySecond;
+
   @override
   void initState() {
     super.initState();
+
+    // sets first value
+    _now = DateTime.now().second.toString();
+
+    // defines a timer
+    _everySecond = Timer.periodic(Duration(seconds: 1), (Timer t) {
+      setState(() {
+        _now = DateTime.now().second.toString();
+        if (isPause[widget.index]) {
+          controller[widget.index].pause();
+        }
+      });
+    });
   }
 
   @override
