@@ -181,7 +181,14 @@ class _DashScreenState extends State<DashScreen> {
                                   Navigator.of(context)
                                       .pushNamed(AppRoutes.pageDetailEvent,
                                           arguments: DetailParameters(index))
-                                      .then((data) => {this.setState(() {})}),
+                                      .then((data) => {
+                                            this.setState(() {
+                                              if (isPause[index]) {
+                                                isPause[index] = false;
+                                                controller[index].resume();
+                                              }
+                                            })
+                                          }),
                                 },
                             leading: Icon(
                               Icons.event,
