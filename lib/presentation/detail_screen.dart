@@ -110,7 +110,7 @@ class _DetailScreenState extends State<DetailScreen> {
             alignment: Alignment.center,
             child: CircularCountDownTimer(
               // Countdown duration in Seconds
-              duration: 3,
+              duration: days[widget.index],
 
               // Controller to control (i.e Pause, Resume, Restart) the Countdown
               controller: controller[widget.index],
