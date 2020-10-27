@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,9 +9,10 @@ import 'add_screen.dart';
 import 'detail_screen.dart';
 import 'package:my_last_time/presentation/detail_screen.dart';
 
-int endTime1Day = 60 * 60 * 24; // 1 day
+int endTime1Day = Duration(days: 1).inSeconds; // 1 day
 List events = [];
 List days = [];
+List daysTmp = [];
 List daysForShow = [];
 List timesUp = [];
 List isPause = [];
@@ -30,22 +33,36 @@ class DashScreen extends StatefulWidget {
     int index,
   }) : super(key: key);
 
+  set timer(Timer timer) {}
+
   void updateData(String event, int day) {
     if (isEdit) {
       events[editIndex] = event;
       days[editIndex] = endTime1Day * day;
+      daysTmp[editIndex] = days[editIndex];
       daysForShow[editIndex] = day;
       timesUp[editIndex] = false;
       isPause[editIndex] = false;
     } else {
       events.add(event);
       days.add(endTime1Day * day);
+      daysTmp.add(endTime1Day * day);
       daysForShow.add(day);
       timesUp.add(false);
       controller.add(CountDownController());
       isPause.add(false);
     }
     isEdit = false;
+  }
+
+  void startTimer() {
+    // Start the periodic timer which prints something every 1 seconds
+    timer = new Timer.periodic(new Duration(seconds: 1), (time) {
+      for (int i = 0; i < days.length; i++) {
+        days[i]--;
+        print(days[i]);
+      }
+    });
   }
 
   final String title;
@@ -143,6 +160,7 @@ class _DashScreenState extends State<DashScreen> {
                         setState(() {
                           events.removeAt(index);
                           days.removeAt(index);
+                          daysTmp.removeAt(index);
                           daysForShow.removeAt(index);
                           timesUp.removeAt(index);
                           controller.removeAt(index);

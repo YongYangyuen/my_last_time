@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -287,12 +288,15 @@ class _DetailScreenState extends State<DetailScreen> {
       child: Text("SKIP"),
       onPressed: () {
         setState(() {
+          days[widget.index] = daysTmp[widget.index];
           controller[widget.index].restart();
           isPause[widget.index] = false;
           controller[widget.index].resume();
           timesUp[widget.index] = false;
         });
         Navigator.pop(context);
+        Navigator.of(context).pushNamed(AppRoutes.pageDashEvent,
+            arguments: DashParameters("Dashboard"));
       },
     );
     Widget cancelButton = FlatButton(
@@ -326,12 +330,15 @@ The time will be reseted.'''),
       child: Text("OK"),
       onPressed: () {
         setState(() {
+          days[widget.index] = daysTmp[widget.index];
           controller[widget.index].restart();
           isPause[widget.index] = false;
           controller[widget.index].resume();
           timesUp[widget.index] = false;
         });
         Navigator.pop(context);
+        Navigator.of(context).pushNamed(AppRoutes.pageDashEvent,
+            arguments: DashParameters("Dashboard"));
       },
     );
     AlertDialog alert2 = AlertDialog(

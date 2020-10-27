@@ -5,6 +5,7 @@ import 'package:numeric_keyboard/numeric_keyboard.dart';
 
 final myControllerTextEvent = TextEditingController();
 final myControllerTextDay = TextEditingController();
+bool isFirst = true;
 
 class AddParameters {
   final String title;
@@ -108,6 +109,10 @@ class _AddScreenState extends State<AddScreen> {
                             arguments: DashParameters("Dashboard"));
                         myControllerTextEvent.clear();
                         myControllerTextDay.clear();
+                        if (isFirst) {
+                          _myDashScreen.startTimer();
+                          isFirst = false;
+                        }
                       },
                       leftIcon: Icon(
                         Icons.check,
