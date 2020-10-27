@@ -261,7 +261,7 @@ class _DetailScreenState extends State<DetailScreen> {
   showAlertDialog(BuildContext context) {
     // set up the buttons
     Widget continueButton = FlatButton(
-      child: Text("YES"),
+      child: Text("SKIP"),
       onPressed: () {
         setState(() {
           _controller.restart();
@@ -273,7 +273,7 @@ class _DetailScreenState extends State<DetailScreen> {
       },
     );
     Widget cancelButton = FlatButton(
-      child: Text("NO"),
+      child: Text("CANCEL"),
       onPressed: () {
         Navigator.pop(context);
       },
