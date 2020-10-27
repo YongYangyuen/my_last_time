@@ -7,8 +7,8 @@ import 'add_screen.dart';
 import 'detail_screen.dart';
 import 'package:my_last_time/presentation/detail_screen.dart';
 
-List events = [];
 int endTime1Day = 60 * 60 * 24; // 1 day
+List events = [];
 List days = [];
 List daysForShow = [];
 List timesUp = [];
@@ -146,6 +146,7 @@ class _DashScreenState extends State<DashScreen> {
                           daysForShow.removeAt(index);
                           timesUp.removeAt(index);
                           controller.removeAt(index);
+                          isPause.removeAt(index);
                         });
                         Scaffold.of(context).showSnackBar(SnackBar(
                             content: Text('"$item" event is removed')));
