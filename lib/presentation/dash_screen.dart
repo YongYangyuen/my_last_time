@@ -105,6 +105,31 @@ class _DashScreenState extends State<DashScreen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 16.0),
                     child: Dismissible(
+                      confirmDismiss: (DismissDirection direction) async {
+                        return await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("Confirm"),
+                              content: Text("Are you sure you want to delete " +
+                                  '"$item"' +
+                                  " event?"),
+                              actions: <Widget>[
+                                FlatButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(true),
+                                    child: const Text("DELETE")),
+                                FlatButton(
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(false),
+                                  child: const Text("CANCEL"),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      direction: DismissDirection.endToStart,
                       key: Key(item),
                       onDismissed: (direction) {
                         // Remove the item from the data source.
