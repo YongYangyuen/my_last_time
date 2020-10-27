@@ -81,6 +81,7 @@ class _DashScreenState extends State<DashScreen> {
               child: ListView.builder(
             itemCount: events.length,
             itemBuilder: (context, index) {
+              final item = events[index];
               return Column(
                 children: <Widget>[
                   Visibility(
@@ -103,47 +104,61 @@ class _DashScreenState extends State<DashScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 16.0),
-                    child: Card(
-                      color: timesUp[index] ? Colors.orange : Colors.green,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      elevation: 4,
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
-                      child: ListTile(
-                          onTap: () => {
-                                isEdit = false,
-                                Navigator.of(context)
-                                    .pushNamed(AppRoutes.pageDetailEvent,
-                                        arguments: DetailParameters(index))
-                                    .then((data) => {this.setState(() {})}),
-                              },
-                          leading: Icon(
-                            Icons.event,
-                            color: Theme.of(context).iconTheme.color,
-                          ),
-                          title: Text(
-                            events[index],
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Text(
-                            'every ' +
-                                daysForShow[index].toString() +
-                                ' day(s)',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                    child: Dismissible(
+                      key: Key(item),
+                      onDismissed: (direction) {
+                        // Remove the item from the data source.
+                        setState(() {
+                          events.removeAt(index);
+                          days.removeAt(index);
+                          daysForShow.removeAt(index);
+                          timesUp.removeAt(index);
+                        });
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                            content: Text('"$item" event is removed')));
+                      },
+                      child: Card(
+                        color: timesUp[index] ? Colors.orange : Colors.green,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        elevation: 4,
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        child: ListTile(
+                            onTap: () => {
+                                  isEdit = false,
+                                  Navigator.of(context)
+                                      .pushNamed(AppRoutes.pageDetailEvent,
+                                          arguments: DetailParameters(index))
+                                      .then((data) => {this.setState(() {})}),
+                                },
+                            leading: Icon(
+                              Icons.event,
+                              color: Theme.of(context).iconTheme.color,
                             ),
-                          ),
-                          trailing: timesUp[index]
-                              ? Icon(
-                                  Icons.warning,
-                                  color: Colors.white,
-                                )
-                              : Icon(
-                                  Icons.check_circle_outline,
-                                  color: Colors.white,
-                                )),
+                            title: Text(
+                              events[index],
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Text(
+                              'every ' +
+                                  daysForShow[index].toString() +
+                                  ' day(s)',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            trailing: timesUp[index]
+                                ? Icon(
+                                    Icons.warning,
+                                    color: Colors.white,
+                                  )
+                                : Icon(
+                                    Icons.check_circle_outline,
+                                    color: Colors.white,
+                                  )),
+                      ),
                     ),
                   ),
                   Divider(), //                           <-- Divider
