@@ -7,8 +7,6 @@ import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 
 bool isEdit = false;
 int editIndex;
-CountDownController _controller = CountDownController();
-bool _isPause = false;
 
 class DetailParameters {
   final int index;
@@ -115,7 +113,7 @@ class _DetailScreenState extends State<DetailScreen> {
               duration: days[widget.index],
 
               // Controller to control (i.e Pause, Resume, Restart) the Countdown
-              controller: _controller,
+              controller: controller[widget.index],
 
               // Width of the Countdown Widget
               width: MediaQuery.of(context).size.width / 2,
@@ -166,19 +164,19 @@ class _DetailScreenState extends State<DetailScreen> {
                 child: MaterialButton(
                   onPressed: () => {
                     setState(() {
-                      if (_isPause) {
-                        _isPause = false;
-                        _controller.resume();
+                      if (isPause[widget.index]) {
+                        isPause[widget.index] = false;
+                        controller[widget.index].resume();
                       } else {
-                        _isPause = true;
-                        _controller.pause();
+                        isPause[widget.index] = true;
+                        controller[widget.index].pause();
                       }
                     })
                   },
-                  color: _isPause ? Colors.orange : Colors.red,
+                  color: isPause[widget.index] ? Colors.orange : Colors.red,
                   textColor: Colors.white,
                   child: Icon(
-                    _isPause ? Icons.play_arrow : Icons.pause,
+                    isPause[widget.index] ? Icons.play_arrow : Icons.pause,
                     size: 40,
                   ),
                   padding: EdgeInsets.all(16),
@@ -227,7 +225,7 @@ class _DetailScreenState extends State<DetailScreen> {
             padding: EdgeInsets.fromLTRB(25.0, 8.0, 0, 0),
             child: Container(
                 alignment: Alignment.topLeft,
-                child: Text(_isPause ? "RESUME" : "PAUSE",
+                child: Text(isPause[widget.index] ? "RESUME" : "PAUSE",
                     style: TextStyle(fontWeight: FontWeight.bold))),
           ),
           Padding(
@@ -264,9 +262,9 @@ class _DetailScreenState extends State<DetailScreen> {
       child: Text("SKIP"),
       onPressed: () {
         setState(() {
-          _controller.restart();
-          _isPause = false;
-          _controller.resume();
+          controller[widget.index].restart();
+          isPause[widget.index] = false;
+          controller[widget.index].resume();
           timesUp[widget.index] = false;
         });
         Navigator.pop(context);
@@ -303,9 +301,9 @@ The time will be reseted.'''),
       child: Text("OK"),
       onPressed: () {
         setState(() {
-          _controller.restart();
-          _isPause = false;
-          _controller.resume();
+          controller[widget.index].restart();
+          isPause[widget.index] = false;
+          controller[widget.index].resume();
           timesUp[widget.index] = false;
         });
         Navigator.pop(context);

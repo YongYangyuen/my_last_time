@@ -1,15 +1,19 @@
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_last_time/config/routes.dart';
 import 'package:my_last_time/data/all_data.dart';
 import 'add_screen.dart';
 import 'detail_screen.dart';
+import 'package:my_last_time/presentation/detail_screen.dart';
 
 List events = [];
 int endTime1Day = 60 * 60 * 24; // 1 day
 List days = [];
 List daysForShow = [];
 List timesUp = [];
+List isPause = [];
+List controller = [];
 
 TextEditingController event = TextEditingController();
 TextEditingController day = TextEditingController();
@@ -32,11 +36,14 @@ class DashScreen extends StatefulWidget {
       days[editIndex] = endTime1Day * day;
       daysForShow[editIndex] = day;
       timesUp[editIndex] = false;
+      isPause[editIndex] = false;
     } else {
       events.add(event);
       days.add(endTime1Day * day);
       daysForShow.add(day);
       timesUp.add(false);
+      controller.add(CountDownController());
+      isPause.add(false);
     }
     isEdit = false;
   }
@@ -138,6 +145,7 @@ class _DashScreenState extends State<DashScreen> {
                           days.removeAt(index);
                           daysForShow.removeAt(index);
                           timesUp.removeAt(index);
+                          controller.removeAt(index);
                         });
                         Scaffold.of(context).showSnackBar(SnackBar(
                             content: Text('"$item" event is removed')));
