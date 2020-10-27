@@ -34,6 +34,7 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blueGrey,
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text("Event - " + events[widget.index]),
