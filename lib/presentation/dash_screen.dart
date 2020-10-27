@@ -9,7 +9,7 @@ import 'add_screen.dart';
 import 'detail_screen.dart';
 import 'package:my_last_time/presentation/detail_screen.dart';
 
-int endTime1Day = Duration(seconds: 3).inSeconds; // 1 day
+int endTime1Day = Duration(days: 1).inSeconds; // 1 day
 List events = [];
 List days = [];
 List daysTmp = [];
