@@ -260,12 +260,6 @@ class _DetailScreenState extends State<DetailScreen> {
 
   showAlertDialog(BuildContext context) {
     // set up the buttons
-    Widget cancelButton = FlatButton(
-      child: Text("NO"),
-      onPressed: () {
-        Navigator.pop(context);
-      },
-    );
     Widget continueButton = FlatButton(
       child: Text("YES"),
       onPressed: () {
@@ -278,14 +272,20 @@ class _DetailScreenState extends State<DetailScreen> {
         Navigator.pop(context);
       },
     );
+    Widget cancelButton = FlatButton(
+      child: Text("NO"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text("Caution"),
       content: Text('''Do you want to skip this round?
 The time will be reseted.'''),
       actions: [
-        cancelButton,
         continueButton,
+        cancelButton,
       ],
     );
     // show the dialog
