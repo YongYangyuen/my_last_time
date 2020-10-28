@@ -5,6 +5,8 @@ import 'package:my_last_time/data/all_data.dart';
 import 'package:my_last_time/presentation/add_screen.dart';
 import 'package:my_last_time/presentation/dash_screen.dart';
 import 'package:my_last_time/presentation/detail_screen.dart';
+import 'package:my_last_time/splash_screen.dart';
+import 'package:splashscreen/splashscreen.dart';
 import 'config/routes.dart';
 import 'data_observer.dart';
 
@@ -22,14 +24,13 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
         create: (_) => DataCubit(),
         child: MaterialApp(
-          title: 'Last Time',
-          onGenerateRoute: _registerRouteWithParameters,
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
-          home: MyHomePage(title: 'Last Time'),
-        ));
+            title: 'Last Time',
+            onGenerateRoute: _registerRouteWithParameters,
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+            ),
+            home: SplashPage()));
   }
 }
 

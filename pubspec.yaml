@@ -30,6 +30,7 @@ dependencies:
   circular_countdown_timer: ^0.0.7
   sqflite:
   path:
+  splashscreen: ^1.2.0
 
 
 
